@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import customFetch from "../../utils/axios";
 import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
@@ -25,11 +24,13 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    logoutUser: (state) => {
+    logoutUser: (state, { payload }) => {
       state.user = null;
       state.isSidebarOpen = false;
       removeUserFromLocalStorage();
-      toast.success("Logout Successful!");
+      if (payload) {
+        toast.success(payload);
+      }
     },
     toggleSidebar: (state) => {
       state.isSidebarOpen = !state.isSidebarOpen;
@@ -82,6 +83,10 @@ const userSlice = createSlice({
   },
 });
 
+// Action Types: When you define actions within your slice using the createSlice function,
+// it automatically generates action types based on the name you provide.
+// For example, if you define an action called updateJob within this slice, the generated action type will be "job/updateJob".
+// here job = user, action = registerUser
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (user, thunkAPI) => {
