@@ -42,6 +42,7 @@ const allJobsSlice = createSlice({
     changePage: (state, { payload }) => {
       state.page = payload;
     },
+    clearStore: () => initialState,
   },
   extraReducers: (builder) => {
     builder
