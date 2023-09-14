@@ -1,4 +1,4 @@
-import customFetch from "../../utils/axios";
+import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
 import { logoutUser } from "../user/userSlice";
 import { getAllJobs, hideLoading, showLoading } from "../allJobs/allJobsSlice";
 import { clearValues } from "./jobSlice";
@@ -15,7 +15,7 @@ export const createJobThunk = async (job, thunkAPI) => {
       return thunkAPI.rejectWithValue("Unauthorized! Logging out...");
     }
     // basic setup
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return checkForUnauthorizedResponse(error, thunkAPI);
   }
 };
 
@@ -27,7 +27,7 @@ export const deleteJobThunk = async (jobId, thunkAPI) => {
     return resp.data;
   } catch (error) {
     thunkAPI.dispatch(hideLoading());
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return checkForUnauthorizedResponse(error, thunkAPI);
   }
 };
 
@@ -37,6 +37,6 @@ export const editJobThunk = async ({ jobId, job }, thunkAPI) => {
     thunkAPI.dispatch(clearValues());
     return resp.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return checkForUnauthorizedResponse(error, thunkAPI);
   }
 };
