@@ -1,11 +1,27 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { showStats } from "../../features/allJobs/allJobsSlice";
+import { ChartsContainer, Loading, StatsContainer } from "../../components";
 
 const Stats = () => {
-  return (
-    <div>
-      <h1>Stats</h1>
-    </div>
+  const { isLoading, monthlyApplications } = useSelector(
+    (store) => store.allJobs
   );
-}
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(showStats());
+    // eslint-disable-next-line
+  }, []);
 
-export default Stats
+  if (isLoading) {
+    return <Loading center />;
+  }
+  return (
+    <>
+      <StatsContainer />
+      {monthlyApplications.length > 0 && <ChartsContainer />}
+    </>
+  );
+};
+
+export default Stats;
