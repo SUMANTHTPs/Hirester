@@ -7,7 +7,7 @@ import { clearFilters, handleChange } from "../features/allJobs/allJobsSlice";
 
 const SearchContainer = () => {
   const [localSearch, setLocalSearch] = useState("");
-  const { isLoading, search, searchStatus, searchType, sort, sortOptions } =
+  const { isLoading, searchStatus, searchType, sort, sortOptions } =
     useSelector((store) => store.allJobs);
   const { jobTypeOptions, statusOptions } = useSelector((store) => store.job);
   const dispatch = useDispatch();
@@ -27,6 +27,7 @@ const SearchContainer = () => {
     };
   };
 
+  // eslint-disable-next-line
   const optimizedDebounce = useMemo(() => debounce(), []);
 
   const handleSubmit = (e) => {

@@ -4,8 +4,6 @@ import { FaTimes } from "react-icons/fa";
 import Logo from "./Logo";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSidebar } from "../features/user/userSlice";
-import { NavLink } from "react-router-dom";
-import links from "../utils/links";
 import NavLinks from "./NavLinks";
 
 const SmallSidebar = () => {
