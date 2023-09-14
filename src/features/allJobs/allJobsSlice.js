@@ -42,7 +42,7 @@ const allJobsSlice = createSlice({
     changePage: (state, { payload }) => {
       state.page = payload;
     },
-    clearStore: () => initialState,
+    clearAllJobsState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -85,4 +85,5 @@ export const {
   handleChange,
   clearFilters,
   changePage,
+  clearAllJobsState,
 } = allJobsSlice.actions;
